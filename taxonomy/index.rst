@@ -92,3 +92,61 @@ On the other side,  higher ranks (e.g. phylum, order and family) are placed high
 
 
 .. image:: taxotree.png
+
+
+
+Count taxon by rank:
+--------------------------
+
+    from biokit import Taxonomy
+     t = Taxonomy()
+    t.load_records()
+    
+    ranks = [t.records[x]['rank'] for x in t.records.keys()]
+    names = [t.records[x]['scientific_name'] for x in t.records.keys()]
+    ids = [t.records[x]['id'] for x in t.records.keys()]
+    parents = [t.records[x]['parent'] for x in t.records.keys()]
+
+    # you can convert data to a data frame and group by rank !
+    import pandas as pd
+    df = pd.DataFrame({'rank':ranks, 'id':ids, 'name':names, 'parent':parents})
+    groups = df.groupby('rank')
+    groups.count().sort('id')
+
+::
+
+
+                       id     name
+    rank                              
+    subkingdom              1        1
+    kingdom                 3        3
+    superphylum             5        5
+    superkingdom            5        5
+    superclass              5        5
+    parvorder               6        6
+    infraclass             16       16
+    subphylum              25       25
+    superorder             49       49
+    infraorder             90       90
+    species subgroup      125      125
+    subclass              129      129
+    phylum                132      132
+    class                 291      291
+    suborder              314      314
+    species group         331      331
+    forma                 425      425
+    subtribe              451      451
+    superfamily           798      798
+    subgenus             1182     1182
+    order                1336     1336
+    tribe                1822     1822
+    subfamily            2559     2559
+    varietas             6144     6144
+    family               8103     8103
+    subspecies          18572    18572
+    genus               75367    75367
+    no rank            182917   182917
+    species           1047411  1047411
+
+
+
