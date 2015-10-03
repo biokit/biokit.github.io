@@ -68,7 +68,27 @@ Note that the last ranks (usually species or subspecies) represent the leaves on
 On the other side,  higher ranks (e.g. phylum, order and family) are placed higher on the tree. The ordered list of the nodes forms the lineage.
 
 
+::
+
+    from biokit import Taxonomy
+    t = Taxonomy() 
+    t.load_records()
+
+    # 207598 is Homininae
+
+    ret = t.get_family_tree(207598)
+    
+    # This is not using biokit anymore but a tool to look at graph.
+    # We could use networkx
+    from cno import CNOGraph
+    for x in ret:
+        if int(x[0]) in t.records.keys() and int(x[1]) in t.records.keys():
+            e1 = t.records[int(x[0])]['scientific_name'];
+            e2 = t.records[int(x[1])]['scientific_name'];
+            if 'Pan' not in e1 and 'Pan' not in e2:
+                c.add_edge(e1, e2, link='+')
+
+    c.plot()
 
 
-
-
+.. image:: taxotree.png
