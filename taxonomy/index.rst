@@ -98,6 +98,9 @@ On the other side,  higher ranks (e.g. phylum, order and family) are placed high
 Count taxon by rank:
 --------------------------
 
+
+::
+
     from biokit import Taxonomy
      t = Taxonomy()
     t.load_records()
